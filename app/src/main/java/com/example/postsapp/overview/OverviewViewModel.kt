@@ -3,6 +3,7 @@ package com.example.postsapp.overview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.postsapp.database.Comment
 import com.example.postsapp.network.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,8 +31,8 @@ class OverviewViewModel : ViewModel() {
     val users: LiveData<List<UserProperty>>
         get() = _users
 
-    private val _comments = MutableLiveData<List<CommentProperty>>()
-    val comments: LiveData<List<CommentProperty>>
+    private val _comments = MutableLiveData<List<Comment>>()
+    val comments: LiveData<List<Comment>>
         get() = _comments
 
     private val _navigateToSelectedProperty = MutableLiveData<PostProperty>()
@@ -106,22 +107,22 @@ class OverviewViewModel : ViewModel() {
     }
 
     fun displayPropertyDetails(postProperty: PostProperty) {
-        coroutineScope.launch {
-            var getCommentsDeferred = Api.retrofitService.getComments(postProperty.id.toString())
-            try {
-                var listResult = getCommentsDeferred.await()
-                if (listResult.size > 0) {
-                    for (e in listResult) {
-                        var username = _users.value?.find { it.email == e.email }?.username
-                        if (username != null) {
-                            e.username = username
-                        }
-                    }
-                    _comments.value = listResult
-                }
-            } catch (t: Throwable) {
-                _status.value = ApiStatus.ERROR
-            }
+//        coroutineScope.launch {
+//            var getCommentsDeferred = Api.retrofitService.getComments(postProperty.id.toString())
+//            try {
+//                var listResult = getCommentsDeferred.await()
+//                if (listResult.size > 0) {
+//                    for (e in listResult) {
+//                        var username = _users.value?.find { it.email == e.email }?.username
+//                        if (username != null) {
+//                            e.username = username
+//                        }
+//                    }
+//                    _comments.value = listResult
+//                }
+//            } catch (t: Throwable) {
+//                _status.value = ApiStatus.ERROR
+//            }
         _navigateToSelectedProperty.value = postProperty
             //DetailProperty(
 //                postProperty.user,
@@ -129,7 +130,7 @@ class OverviewViewModel : ViewModel() {
 //            postProperty.title,
 //            postProperty.body,
 //            _comments.value)
-        }
+       // }
     }
 
     fun displayPropertyDetailsComplete() {

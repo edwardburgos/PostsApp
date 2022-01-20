@@ -5,37 +5,38 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.postsapp.database.Comment
 import com.example.postsapp.databinding.CommentItemBinding
 import com.example.postsapp.databinding.PostItemBinding
 import com.example.postsapp.network.CommentProperty
 import com.example.postsapp.network.PostProperty
 
-class CommentsAdapter(): ListAdapter<CommentProperty, CommentsAdapter.CommentsPropertyViewHolder>(DiffCallback) {
-    class CommentsPropertyViewHolder(private var binding: CommentItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bin(commentProperty: CommentProperty) {
-            binding.property = commentProperty
+class CommentsAdapter(): ListAdapter<Comment, CommentsAdapter.CommentViewHolder>(DiffCallback) {
+    class CommentViewHolder(private var binding: CommentItemBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bin(comment: Comment) {
+            binding.property = comment
             binding.executePendingBindings()
         }
     }
 
-    companion object DiffCallback: DiffUtil.ItemCallback<CommentProperty>() {
-        override fun areItemsTheSame(oldItem: CommentProperty, newItem: CommentProperty): Boolean {
+    companion object DiffCallback: DiffUtil.ItemCallback<Comment>() {
+        override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: CommentProperty, newItem: CommentProperty): Boolean {
+        override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
             return oldItem.id == newItem.id
         }
     }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CommentsPropertyViewHolder {
-        return CommentsPropertyViewHolder(CommentItemBinding.inflate(LayoutInflater.from(parent.context)))
+    ): CommentViewHolder {
+        return CommentViewHolder(CommentItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
-    override fun onBindViewHolder(holder: CommentsPropertyViewHolder, position: Int) {
-        val commentProperty = getItem(position)
-        holder.bin(commentProperty)
+    override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
+        val comment = getItem(position)
+        holder.bin(comment)
     }
 }

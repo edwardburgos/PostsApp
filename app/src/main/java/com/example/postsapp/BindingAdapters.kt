@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.postsapp.database.Comment
 import com.example.postsapp.detail.CommentsAdapter
 import com.example.postsapp.network.CommentProperty
 import com.example.postsapp.network.PostProperty
@@ -19,7 +20,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<PostProperty>?) {
 }
 
 @BindingAdapter("listComments")
-fun bindCommentsRecyclerView(recyclerView: RecyclerView, data: List<CommentProperty>?) {
+fun bindCommentsRecyclerView(recyclerView: RecyclerView, data: List<Comment>?) {
     val adapter = recyclerView.adapter as CommentsAdapter
     adapter.submitList(data)
 }

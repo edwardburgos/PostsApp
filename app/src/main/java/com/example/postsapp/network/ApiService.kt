@@ -1,5 +1,6 @@
 package com.example.postsapp.network
 
+import com.example.postsapp.database.Comment
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -33,7 +34,7 @@ interface ApiService {
 
     @GET("comments")
     fun getComments(@Query("postId") type: String):
-            Deferred<List<CommentProperty>>
+            Deferred<List<Comment>>
 }
 
 /**

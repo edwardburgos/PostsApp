@@ -9,6 +9,9 @@ buildscript {
         version_retrofit = "2.9.0"
         version_navigation_ui = "2.3.5"
         version_recyclerview = "1.2.1"
+        version_lifecycle_extensions = "2.2.0"
+        version_room = "2.4.0-rc01"
+        version_lifecycle = "2.2.0"
     }
     repositories {
         google()

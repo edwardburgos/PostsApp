@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class CommentProperty (
     val id: Int,
-    var username: String?,
+    val postId: Int,
     val name: String,
     val email: String,
     val body: String
