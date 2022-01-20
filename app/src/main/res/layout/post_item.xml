@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="property"
+            type="com.example.postsapp.network.PostProperty"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/post_username"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:adjustViewBounds="true"
+            android:padding="2dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:scaleType="centerCrop"
+            android:text="@{property.user}"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="@dimen/normal_letter"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="POST USERNAME" />
+
+        <TextView
+            android:id="@+id/post_title"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp"
+            android:adjustViewBounds="true"
+            android:padding="2dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:scaleType="centerCrop"
+            android:text="@{property.title}"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="@dimen/normal_letter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/post_username"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="POST TITLE" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/mars_image"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="170dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:adjustViewBounds="true"-->
+<!--        android:padding="2dp"-->
+<!--        app:imageUrl="@{property.}"-->
+<!--        tools:src="@tools:sample/backgrounds/scenic"/>-->
+</layout>

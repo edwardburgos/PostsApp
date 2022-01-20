@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.postsapp.detail.DetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp">
+
+        <!--            <ImageView-->
+        <!--                android:id="@+id/main_photo_image"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="266dp"-->
+        <!--                android:scaleType="centerCrop"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent"-->
+        <!--                app:imageUrl="@{viewModel.selectedProperty.imgUrl}"-->
+        <!--                tools:src="@tools:sample/backgrounds/scenic" />-->
+
+        <TextView
+            android:id="@+id/property_type_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{viewModel.selectedProperty.title}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/normal_letter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{viewModel.selectedProperty.user}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/big_letter"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{viewModel.selectedProperty.body}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/normal_letter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/property_type_text" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comments_grid"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="6dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/commentsLabel"
+            app:layout_constraintVertical_bias="0.0"
+            app:listComments="@{viewModel.selectedProperty.comments}"
+            tools:itemCount="16"
+            tools:listitem="@layout/comment_item" />
+
+        <TextView
+            android:id="@+id/commentsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/comments"
+            android:textColor="@color/black"
+            android:textSize="@dimen/normal_letter"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:ApiStatusCommentVisibility="@{viewModel.status}" />
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/price_value_text"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginTop="8dp"-->
+        <!--                android:textColor="#de000000"-->
+        <!--                android:textSize="20sp"-->
+        <!--                app:layout_constraintStart_toStartOf="parent"-->
+        <!--                app:layout_constraintTop_toBottomOf="@+id/property_type_text"-->
+        <!--                tools:text="@{viewModel.displayPropertyPrice}" />-->
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:ApiStatus="@{viewModel.status}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
