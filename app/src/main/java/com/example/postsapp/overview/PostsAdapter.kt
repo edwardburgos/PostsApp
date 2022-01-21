@@ -10,7 +10,7 @@ import com.example.postsapp.entities.Post
 
 class PostsAdapter(val onClickListener: OnClickListener): ListAdapter<Post, PostsAdapter.PostsPropertyViewHolder>(DiffCallback) {
 
-    class PostsPropertyViewHolder(private var binding: PostItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class PostsPropertyViewHolder(private val binding: PostItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bin(post: Post) {
             binding.property = post
             binding.executePendingBindings()

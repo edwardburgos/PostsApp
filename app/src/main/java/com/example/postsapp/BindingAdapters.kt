@@ -43,7 +43,6 @@ fun bindStatus(statusImageView: ImageView, status: ApiStatus?) {
             statusImageView.getLayoutParams().width = 200;
             statusImageView.requestLayout();
         }
-
     }
 }
 
@@ -60,6 +59,5 @@ fun bindStatusCommentVisibility(commentsLabel: TextView, status: ApiStatus?) {
         ApiStatus.ERROR -> {
                 commentsLabel.visibility = View.GONE
         }
-
     }
 }

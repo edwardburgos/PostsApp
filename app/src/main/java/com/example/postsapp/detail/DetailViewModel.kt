@@ -25,9 +25,6 @@ class DetailViewModel @ViewModelInject constructor(
     val status: MutableLiveData<ApiStatus>
         get() = _status
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
     private val _comments = MutableLiveData<List<Comment>>()
     val comments: LiveData<List<Comment>>
         get() = _comments

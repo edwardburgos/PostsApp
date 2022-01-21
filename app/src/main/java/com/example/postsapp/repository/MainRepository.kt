@@ -78,17 +78,24 @@ class MainRepository(
         _properties: MutableLiveData<List<Post>>
     ) {
         viewModelScope.launch {
-            // This is a coroutine scope
-            var getPropertiesDeferred = Api.retrofitService.getPosts()
-            var getUsersDeferred = Api.retrofitService.getUsers()
+            lateinit var getPropertiesDeferred: Deferred<List<Post>>
+            lateinit var getUsersDeferred: Deferred<List<User>>
+            withContext(Dispatchers.IO) {
+                getPropertiesDeferred = Api.retrofitService.getPosts()
+                getUsersDeferred = Api.retrofitService.getUsers()
+            }
             try {
                 _status.value = ApiStatus.LOADING
-                var listResult = getPropertiesDeferred.await()
-                var users = getUsersDeferred.await()
+                lateinit var listResult: List<Post>
+                lateinit var users: List<User>
+                withContext(Dispatchers.IO) {
+                    listResult = getPropertiesDeferred.await()
+                    users = getUsersDeferred.await()
+                }
                 _status.value = ApiStatus.DONE
                 if (listResult.size > 0 && users.size > 0) {
                     for (e in listResult) {
-                        var username = users.find { it.id.toString() == e.user }?.username
+                        val username = users.find { it.id.toString() == e.user }?.username
                         if (username != null) {
                             e.user = username
                         }

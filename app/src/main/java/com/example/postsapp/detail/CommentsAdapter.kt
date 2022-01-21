@@ -10,7 +10,7 @@ import com.example.postsapp.databinding.CommentItemBinding
 
 class CommentsAdapter(): ListAdapter<Comment, CommentsAdapter.CommentViewHolder>(DiffCallback) {
 
-    class CommentViewHolder(private var binding: CommentItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class CommentViewHolder(private val binding: CommentItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bin(comment: Comment) {
             binding.property = comment
             binding.executePendingBindings()
