@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.postsapp.databinding.FragmentOverviewBinding
 
 class OverviewFragment : Fragment() {
@@ -44,6 +45,11 @@ class OverviewFragment : Fragment() {
                 viewModel.displayPropertyDetailsComplete()
             }
         })
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getPosts()
+            binding.swipeRefreshLayout.setRefreshing(false);
+        }
 
         setHasOptionsMenu(true)
 

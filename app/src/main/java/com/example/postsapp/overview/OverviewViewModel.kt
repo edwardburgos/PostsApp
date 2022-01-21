@@ -40,7 +40,7 @@ class OverviewViewModel(
         getPosts()
     }
 
-    private fun getPosts() {
+    fun getPosts() {
         mainRepository.getPosts(viewModelScope, _status, _properties)
     }
 

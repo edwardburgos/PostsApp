@@ -1,7 +1,6 @@
 package com.example.postsapp.detail
 
 import android.app.Application
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.postsapp.entities.Comment
 import com.example.postsapp.entities.Detail
@@ -10,7 +9,7 @@ import com.example.postsapp.overview.ApiStatus
 import com.example.postsapp.repository.MainRepository
 import kotlinx.coroutines.*
 
-class DetailViewModel @ViewModelInject constructor(
+class DetailViewModel(
     post: Post,
     app: Application
 ) : AndroidViewModel(app) {
