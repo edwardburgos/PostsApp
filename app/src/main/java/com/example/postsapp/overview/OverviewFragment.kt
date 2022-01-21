@@ -47,7 +47,7 @@ class OverviewFragment : Fragment() {
         })
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.getPosts()
+            viewModel.getPosts(true)
             binding.swipeRefreshLayout.setRefreshing(false);
         }
 

@@ -37,11 +37,11 @@ class OverviewViewModel(
         get() = _navigateToSelectedProperty
 
     init {
-        getPosts()
+        getPosts(false)
     }
 
-    fun getPosts() {
-        mainRepository.getPosts(viewModelScope, _status, _properties)
+    fun getPosts(fromSwiper: Boolean) {
+        mainRepository.getPosts(fromSwiper, viewModelScope, _status, _properties)
     }
 
     fun displayPropertyDetails(post: Post) {

@@ -5,7 +5,7 @@ import androidx.room.*
 import com.example.postsapp.entities.Comment
 
 @Dao
-interface CommentsDatabaseDao {
+interface CommentDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(comment: Comment)
@@ -16,11 +16,14 @@ interface CommentsDatabaseDao {
     @Update
     fun update(comment: Comment)
 
+    @Update
+    fun updateAll(comments: List<Comment>)
+
     @Query("DELETE FROM comment_table")
     suspend fun clear()
 
     @Query("SELECT * FROM comment_table WHERE postId = :key ORDER BY id DESC ")
-    suspend fun getPostCommentsSuspend(key: Int): List<Comment>
+    suspend fun getPostComments(key: Int): List<Comment>
 
     @Query("SELECT * FROM comment_table")
     fun getAllComments(): LiveData<List<Comment>>

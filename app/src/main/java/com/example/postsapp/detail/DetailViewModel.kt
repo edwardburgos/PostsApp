@@ -3,8 +3,8 @@ package com.example.postsapp.detail
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.postsapp.entities.Comment
-import com.example.postsapp.entities.Detail
 import com.example.postsapp.entities.Post
+import com.example.postsapp.entities.PostWithComments
 import com.example.postsapp.overview.ApiStatus
 import com.example.postsapp.repository.MainRepository
 import kotlinx.coroutines.*
@@ -16,8 +16,8 @@ class DetailViewModel(
 
     private val mainRepository = MainRepository(app)
 
-    private val _selectedPost = MutableLiveData<Detail>()
-    val selectedProperty: LiveData<Detail>
+    private val _selectedPost = MutableLiveData<PostWithComments>()
+    val selectedProperty: LiveData<PostWithComments>
         get() = _selectedPost
 
     private val _status = MutableLiveData<ApiStatus>()

@@ -2,11 +2,10 @@ package com.example.postsapp.repository
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.example.postsapp.entities.Comment
-import com.example.postsapp.database.CommentsDatabase
+import com.example.postsapp.database.SocialDatabase
 import com.example.postsapp.network.Api
-import com.example.postsapp.entities.Detail
+import com.example.postsapp.entities.PostWithComments
 import com.example.postsapp.entities.Post
 import com.example.postsapp.entities.User
 import com.example.postsapp.overview.ApiStatus
@@ -16,63 +15,54 @@ class MainRepository(
     application: Application
 ) {
 
-    private val commentsDatabaseDao = CommentsDatabase.getInstance(application).commentsDatabaseDao
+    private val commentDao = SocialDatabase.getInstance(application).commentDao
+    private val postDao = SocialDatabase.getInstance(application).postDao
 
     fun getComments(
         post: Post,
         viewModelScope: CoroutineScope,
         _status: MutableLiveData<ApiStatus>,
         _comments: MutableLiveData<List<Comment>>,
-        _selectedPost: MutableLiveData<Detail>
+        _selectedPost: MutableLiveData<PostWithComments>
     ) {
-        // api.retrofitService.getComments(postId)
         viewModelScope.launch {
-            lateinit var postComments: List<Comment>
+            lateinit var getCommentsDeferred: Deferred<List<Comment>>
             withContext(Dispatchers.IO) {
-                postComments = commentsDatabaseDao.getPostCommentsSuspend(post.id)
+                getCommentsDeferred =
+                    Api.retrofitService.getComments(post.id.toString())
             }
-            if (postComments.size != 0) {
-                _selectedPost.value = Detail(
-                    post.user,
-                    post.id,
-                    post.title,
-                    post.body,
-                    postComments
-                )
-            } else {
-                lateinit var getCommentsDeferred: Deferred<List<Comment>>
+            try {
+                _status.value = ApiStatus.LOADING
+                lateinit var listResult: List<Comment>
                 withContext(Dispatchers.IO) {
-                    getCommentsDeferred =
-                        Api.retrofitService.getComments(post.id.toString())
+                    listResult = getCommentsDeferred.await()
                 }
-                try {
-                    _status.value = ApiStatus.LOADING
-                    lateinit var listResult: List<Comment>
+                _status.value = ApiStatus.DONE
+                if (listResult.size > 0) {
+                    _comments.value = listResult
                     withContext(Dispatchers.IO) {
-                        listResult = getCommentsDeferred.await()
-                    }
-                    _status.value = ApiStatus.DONE
-                    if (listResult.size > 0) {
-                        _comments.value = listResult
-                        withContext(Dispatchers.IO) {
-                            commentsDatabaseDao.insertAll(listResult)
+                        if (commentDao.getPostComments(post.id).size == 0) {
+                            commentDao.insertAll(listResult)
+                        } else {
+                            commentDao.updateAll(listResult)
                         }
                     }
-                } catch (t: Throwable) {
-                    _status.value = ApiStatus.ERROR
                 }
-                _selectedPost.value = Detail(
-                    post.user,
-                    post.id,
-                    post.title,
-                    post.body,
-                    _comments.value
-                )
+            } catch (t: Throwable) {
+                _status.value = ApiStatus.ERROR
             }
+            val commentsRetrieved = _comments.value
+            val comments: List<Comment> =
+                if (commentsRetrieved != null) commentsRetrieved else listOf<Comment>()
+            _selectedPost.value = PostWithComments(
+                post,
+                comments
+            )
         }
     }
 
     fun getPosts(
+        fromSwiper: Boolean,
         viewModelScope: CoroutineScope,
         _status: MutableLiveData<ApiStatus>,
         _properties: MutableLiveData<List<Post>>
@@ -85,7 +75,7 @@ class MainRepository(
                 getUsersDeferred = Api.retrofitService.getUsers()
             }
             try {
-                _status.value = ApiStatus.LOADING
+                if (!fromSwiper) _status.value = ApiStatus.LOADING
                 lateinit var listResult: List<Post>
                 lateinit var users: List<User>
                 withContext(Dispatchers.IO) {
@@ -101,8 +91,16 @@ class MainRepository(
                         }
                     }
                     _properties.value = listResult
+                    withContext(Dispatchers.IO) {
+                        if (postDao.getAllPosts().size == 0) {
+                            postDao.insertAll(listResult)
+                        } else {
+                            postDao.updateAll(listResult)
+                        }
+                    }
                 }
             } catch (t: Throwable) {
+                println(t.message)
                 _status.value = ApiStatus.ERROR
             }
         }
