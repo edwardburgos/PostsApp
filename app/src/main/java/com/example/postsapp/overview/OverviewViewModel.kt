@@ -4,13 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.example.postsapp.entities.Comment
 import com.example.postsapp.entities.Post
-import com.example.postsapp.entities.User
-import com.example.postsapp.network.*
 import com.example.postsapp.repository.MainRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 enum class ApiStatus { LOADING, ERROR, DONE }
 

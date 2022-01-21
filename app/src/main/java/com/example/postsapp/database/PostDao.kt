@@ -1,8 +1,6 @@
 package com.example.postsapp.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.postsapp.entities.Comment
 import com.example.postsapp.entities.Post
 import com.example.postsapp.entities.PostWithComments
 

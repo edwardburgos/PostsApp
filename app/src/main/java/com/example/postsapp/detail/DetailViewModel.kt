@@ -7,7 +7,6 @@ import com.example.postsapp.entities.Post
 import com.example.postsapp.entities.PostWithComments
 import com.example.postsapp.overview.ApiStatus
 import com.example.postsapp.repository.MainRepository
-import kotlinx.coroutines.*
 
 class DetailViewModel(
     post: Post,
