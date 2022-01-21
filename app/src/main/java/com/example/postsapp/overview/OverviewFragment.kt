@@ -1,6 +1,8 @@
 package com.example.postsapp.overview
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,6 +18,10 @@ class OverviewFragment : Fragment() {
         ViewModelProvider(this).get(OverviewViewModel::class.java)
     }
 
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var runnable: Runnable
+    private val delay = 900000
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,7 +34,7 @@ class OverviewFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         val viewModelFactory = OverviewViewModelFactory(application)
-        val overviewViewModel = ViewModelProvider(this, viewModelFactory, )
+        val overviewViewModel = ViewModelProvider(this, viewModelFactory)
             .get(OverviewViewModel::class.java)
         binding.viewModel = overviewViewModel
 
@@ -46,12 +52,25 @@ class OverviewFragment : Fragment() {
         })
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.getPosts(true)
+            viewModel.getPosts(false)
             binding.swipeRefreshLayout.setRefreshing(false);
         }
 
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    override fun onResume() {
+        handler.postDelayed(Runnable {
+            handler.postDelayed(runnable, delay.toLong())
+            viewModel.getPosts(false)
+        }.also { runnable = it }, delay.toLong())
+        super.onResume()
+    }
+
+    override fun onPause() {
+        handler.removeCallbacks(runnable!!)
+        super.onPause()
     }
 }

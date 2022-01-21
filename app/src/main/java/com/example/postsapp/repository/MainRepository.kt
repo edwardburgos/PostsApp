@@ -1,6 +1,7 @@
 package com.example.postsapp.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.postsapp.entities.Comment
 import com.example.postsapp.database.SocialDatabase
@@ -62,7 +63,7 @@ class MainRepository(
     }
 
     fun getPosts(
-        fromSwiper: Boolean,
+        showLoading: Boolean,
         viewModelScope: CoroutineScope,
         _status: MutableLiveData<ApiStatus>,
         _properties: MutableLiveData<List<Post>>
@@ -75,7 +76,7 @@ class MainRepository(
                 getUsersDeferred = Api.retrofitService.getUsers()
             }
             try {
-                if (!fromSwiper) _status.value = ApiStatus.LOADING
+                if (showLoading) _status.value = ApiStatus.LOADING
                 lateinit var listResult: List<Post>
                 lateinit var users: List<User>
                 withContext(Dispatchers.IO) {
@@ -91,6 +92,7 @@ class MainRepository(
                         }
                     }
                     _properties.value = listResult
+                    Log.i("EDWARD", "SE ACTUALIZÓ")
                     withContext(Dispatchers.IO) {
                         if (postDao.getAllPosts().size == 0) {
                             postDao.insertAll(listResult)
