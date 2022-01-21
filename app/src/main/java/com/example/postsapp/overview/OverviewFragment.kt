@@ -2,7 +2,6 @@ package com.example.postsapp.overview
 
 import android.os.Bundle
 import android.view.*
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,14 +22,22 @@ class OverviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentOverviewBinding.inflate(inflater)
+
+        val application = requireNotNull(activity).application
+
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
+
+        val viewModelFactory = OverviewViewModelFactory(application)
+        val overviewViewModel = ViewModelProvider(this, viewModelFactory, )
+            .get(OverviewViewModel::class.java)
+        binding.viewModel = overviewViewModel
+
 
         binding.postsGrid.adapter = PostsAdapter(PostsAdapter.OnClickListener {
             viewModel.displayPropertyDetails(it)
         })
 
-        viewModel.navigateToSelectedProperty.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToSelectedPost.observe(viewLifecycleOwner, Observer {
             if (null != it) {
                 Navigation.findNavController(requireView())
                     .navigate(OverviewFragmentDirections.actionShowDetail(it))
@@ -38,9 +45,8 @@ class OverviewFragment : Fragment() {
             }
         })
 
-
-
         setHasOptionsMenu(true)
+
         return binding.root
     }
 }

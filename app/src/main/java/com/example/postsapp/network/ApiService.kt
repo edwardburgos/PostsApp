@@ -1,11 +1,12 @@
 package com.example.postsapp.network
 
-import com.example.postsapp.database.Comment
+import com.example.postsapp.entities.Comment
+import com.example.postsapp.entities.Post
+import com.example.postsapp.entities.User
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -26,23 +27,17 @@ private val retrofit = Retrofit.Builder()
 interface ApiService {
     @GET("posts")
     fun getPosts():
-            Deferred<List<PostProperty>>
+            Deferred<List<Post>>
 
     @GET("users")
     fun getUsers():
-            Deferred<List<UserProperty>>
+            Deferred<List<User>>
 
     @GET("comments")
     fun getComments(@Query("postId") type: String):
             Deferred<List<Comment>>
 }
 
-/**
- * A public Api object that exposes the lazy-initialized Retrofit service
- * This object is going to be exposed to all the app
- */
 object Api {
-
-    /* retrofitService returns a Retrofit object that implements MarsApiService */
     val retrofitService : ApiService by lazy { retrofit.create(ApiService::class.java) }
 }

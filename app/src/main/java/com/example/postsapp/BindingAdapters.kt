@@ -5,16 +5,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.postsapp.database.Comment
+import com.example.postsapp.entities.Comment
 import com.example.postsapp.detail.CommentsAdapter
-import com.example.postsapp.network.CommentProperty
-import com.example.postsapp.network.PostProperty
+import com.example.postsapp.entities.Post
 import com.example.postsapp.overview.ApiStatus
 import com.example.postsapp.overview.PostsAdapter
 
-
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<PostProperty>?) {
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Post>?) {
     val adapter = recyclerView.adapter as PostsAdapter
     adapter.submitList(data)
 }
@@ -24,30 +22,6 @@ fun bindCommentsRecyclerView(recyclerView: RecyclerView, data: List<Comment>?) {
     val adapter = recyclerView.adapter as CommentsAdapter
     adapter.submitList(data)
 }
-
-//
-//@BindingAdapter("listData")
-//fun bindRecyclerView(recyclerView: RecyclerView, data: List<MarsProperty>?) {
-//    val adapter = recyclerView.adapter as PhotoGridAdapter
-//    adapter.submitList(data)
-//}
-
-
-
-
-//// Use Glide to display the image
-//@BindingAdapter("imageUrl") // To use this * binding annotations *, 'kotlin-kapt' plugin is needed
-//fun bindImage(imgView: ImageView, imgUrl: String?) {
-//    imgUrl?.let {
-//        val imgUrl = it.toUri().buildUpon().scheme("https").build()
-//        Glide.with(imgView.context)
-//            .load(imgUrl)
-//            .apply(RequestOptions()
-//                .placeholder(R.drawable.loading_animation)
-//                .error(R.drawable.ic_baseline_broken_image_24))
-//            .into(imgView)
-//    }
-//}
 
 @BindingAdapter("ApiStatus")
 fun bindStatus(statusImageView: ImageView, status: ApiStatus?) {

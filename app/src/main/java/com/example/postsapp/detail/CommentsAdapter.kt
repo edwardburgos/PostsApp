@@ -5,13 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.postsapp.database.Comment
+import com.example.postsapp.entities.Comment
 import com.example.postsapp.databinding.CommentItemBinding
-import com.example.postsapp.databinding.PostItemBinding
-import com.example.postsapp.network.CommentProperty
-import com.example.postsapp.network.PostProperty
 
 class CommentsAdapter(): ListAdapter<Comment, CommentsAdapter.CommentViewHolder>(DiffCallback) {
+
     class CommentViewHolder(private var binding: CommentItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bin(comment: Comment) {
             binding.property = comment
@@ -28,6 +26,7 @@ class CommentsAdapter(): ListAdapter<Comment, CommentsAdapter.CommentViewHolder>
             return oldItem.id == newItem.id
         }
     }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

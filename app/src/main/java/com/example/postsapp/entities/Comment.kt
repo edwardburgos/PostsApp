@@ -1,4 +1,4 @@
-package com.example.postsapp.database
+package com.example.postsapp.entities
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

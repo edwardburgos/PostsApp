@@ -6,7 +6,7 @@
     <data>
         <variable
             name="property"
-            type="com.example.postsapp.network.PostProperty"/>
+            type="com.example.postsapp.entities.Post"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

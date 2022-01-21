@@ -1,40 +1,27 @@
 package com.example.postsapp.detail
 
 import android.app.Application
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.example.postsapp.database.Comment
-import com.example.postsapp.database.CommentsDatabaseDao
-import com.example.postsapp.network.*
+import com.example.postsapp.entities.Comment
+import com.example.postsapp.entities.Detail
+import com.example.postsapp.entities.Post
 import com.example.postsapp.overview.ApiStatus
+import com.example.postsapp.repository.MainRepository
 import kotlinx.coroutines.*
 
-enum class ApiStatus { LOADING, ERROR, DONE }
+class DetailViewModel @ViewModelInject constructor(
+    post: Post,
+    app: Application
+) : AndroidViewModel(app) {
 
-class DetailViewModel(
-    postProperty: PostProperty,
-    app: Application,
-    val database: CommentsDatabaseDao
-) : AndroidViewModel(app) { // AndroidViewModel(app)
+    private val mainRepository = MainRepository(app)
 
-//    class BusScheduleViewModel(private val scheduleDao: ScheduleDao): ViewModel() {
-//
-//        fun fullSchedule(): Flow<List<Schedule>> = scheduleDao.getAll()
-//
-//        fun scheduleForStopName(name: String): Flow<List<Schedule>> = scheduleDao.getByStopName(name)
-//    }
-
-    // val database = database
-    var commentsf = database.getPostComments(postProperty.id)
-
-
-    // println(commentsf)
-    private val _selectedProperty = MutableLiveData<DetailProperty>()
-    val selectedProperty: LiveData<DetailProperty>
-        get() = _selectedProperty
+    private val _selectedPost = MutableLiveData<Detail>()
+    val selectedProperty: LiveData<Detail>
+        get() = _selectedPost
 
     private val _status = MutableLiveData<ApiStatus>()
-
-    // The external immutable LiveData for the status String
     val status: MutableLiveData<ApiStatus>
         get() = _status
 
@@ -46,88 +33,10 @@ class DetailViewModel(
         get() = _comments
 
     init {
-        postToDetail(postProperty)
-        // _selectedProperty.value = postProperty
+        postToDetail(post)
     }
 
-
-    private suspend fun insert(comment: Comment) {
-        withContext(Dispatchers.IO) {
-            database.insert(comment)
-            prueba()
-
-        }
+    fun postToDetail(post: Post) {
+        mainRepository.getComments(post, viewModelScope, _status, _comments, _selectedPost)
     }
-
-    fun prueba() {
-        println(5 + 25)
-        println(commentsf)
-    }
-
-    fun postToDetail(postProperty: PostProperty) {
-        viewModelScope.launch {
-            lateinit var postComments: List<Comment>
-            withContext(Dispatchers.IO) {
-                postComments = database.getPostCommentsSuspend(postProperty.id)
-            }
-            if (postComments.size != 0) {
-                _selectedProperty.value = DetailProperty(
-                    postProperty.user,
-                    postProperty.id,
-                    postProperty.title,
-                    postProperty.body,
-                    postComments
-                )
-            } else {
-                var getCommentsDeferred = Api.retrofitService.getComments(postProperty.id.toString())
-                try {
-                    _status.value = ApiStatus.LOADING
-                    var listResult = getCommentsDeferred.await()
-                    _status.value = ApiStatus.DONE
-                    if (listResult.size > 0) {
-                        _comments.value = listResult
-                        withContext(Dispatchers.IO) {
-                            database.insertAll(listResult)
-                        }
-                    }
-                } catch (t: Throwable) {
-                    _status.value = ApiStatus.ERROR
-                }
-                _selectedProperty.value = DetailProperty(
-                    postProperty.user,
-                    postProperty.id,
-                    postProperty.title,
-                    postProperty.body,
-                    _comments.value
-                )
-            }
-        }
-    }
-
-    override fun onCleared() {
-        viewModelJob.cancel() // To cancel the job when the fragment is gone
-        super.onCleared()
-    }
-
-
-//    val displayPropertyPrice = Transformations.map(selectedProperty) {
-//        app.applicationContext.getString(
-//            when (it.isRental) {
-//                true -> R.string.display_price_monthly_rental
-//                false -> R.string.display_price
-//            }, it.price
-//        )
-//    }
-
-//    val displayPropertyType = Transformations.map(selectedProperty) {
-//        app.applicationContext.getString(
-//            R.string.display_type,
-//            app.applicationContext.getString(
-//                when (it.isRental) {
-//                    true -> R.string.type_rent
-//                    false -> R.string.type_sale
-//                }
-//            )
-//        )
-//    }
 }

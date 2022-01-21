@@ -71,5 +71,14 @@ dependencies {
     implementation "androidx.room:room-ktx:$version_room"
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
+    // Dagger Hilt
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$androidx_dagger_hilt"
+    kapt "androidx.hilt:hilt-compiler:$androidx_dagger_hilt"
+    implementation "com.google.dagger:hilt-android:$dagger_hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$dagger_hilt"
+    androidTestImplementation  "com.google.dagger:hilt-android-testing:$dagger_hilt"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$dagger_hilt"
+    testImplementation "com.google.dagger:hilt-android-testing:$dagger_hilt"
+    kaptTest "com.google.dagger:hilt-android-compiler:$dagger_hilt"
 
 }

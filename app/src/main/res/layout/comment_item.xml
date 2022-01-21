@@ -6,7 +6,7 @@
     <data>
         <variable
             name="property"
-            type="com.example.postsapp.database.Comment"/>
+            type="com.example.postsapp.entities.Comment"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -21,8 +21,8 @@
         android:label="Details"
         tools:layout="@layout/fragment_detail">
         <argument
-            android:name="selectedProperty"
-            app:argType="com.example.postsapp.network.PostProperty"/>
+            android:name="selectedPost"
+            app:argType="com.example.postsapp.entities.Post"/>
     </fragment>
 
 </navigation>
