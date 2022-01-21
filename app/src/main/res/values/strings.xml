@@ -4,4 +4,6 @@
     <string name="comment_body">COMMENT BODY</string>
     <string name="comment_email">COMMENT EMAIL</string>
     <string name="comment_title">COMMENT TITLE</string>
+    <string name="post_title">POST TITLE</string>
+    <string name="post_username">POST USERNAME</string>
 </resources>

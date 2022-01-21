@@ -16,11 +16,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/posts_grid"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/size_0"
+            android:layout_height="@dimen/size_0"
             android:clipToPadding="false"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
+            android:paddingTop="@dimen/size_6"
+            android:paddingBottom="@dimen/size_6"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,8 +33,8 @@
         <!--         app:listData="@{viewModel.properties}"-->
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/size_100"
+            android:layout_height="@dimen/size_100"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

@@ -16,10 +16,10 @@
 
         <TextView
             android:id="@+id/post_username"
-            android:layout_width="360dp"
+            android:layout_width="@dimen/size_360"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/size_2"
+            android:layout_marginTop="@dimen/size_16"
             android:text="@{property.email}"
             android:textColor="@color/black"
             android:textSize="@dimen/normal_letter"
@@ -32,10 +32,10 @@
 
         <TextView
             android:id="@+id/post_title"
-            android:layout_width="360dp"
+            android:layout_width="@dimen/size_360"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/size_2"
+            android:layout_marginTop="@dimen/size_8"
             android:text="@{property.name}"
             android:textColor="@color/black"
             android:textSize="@dimen/normal_letter"
@@ -47,11 +47,11 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="360dp"
+            android:layout_width="@dimen/size_360"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/size_2"
+            android:layout_marginTop="@dimen/size_8"
+            android:layout_marginBottom="@dimen/size_16"
             android:text="@{property.body}"
             android:textColor="@color/black"
             android:textSize="@dimen/normal_letter"
@@ -62,16 +62,6 @@
             app:layout_constraintTop_toBottomOf="@+id/post_title"
             app:layout_constraintVertical_bias="0.0"
             tools:text="@string/comment_body" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--    <ImageView-->
-<!--        android:id="@+id/mars_image"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="170dp"-->
-<!--        android:scaleType="centerCrop"-->
-<!--        android:adjustViewBounds="true"-->
-<!--        android:padding="2dp"-->
-<!--        app:imageUrl="@{property.}"-->
-<!--        tools:src="@tools:sample/backgrounds/scenic"/>-->
 </layout>

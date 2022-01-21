@@ -29,8 +29,8 @@ fun bindStatus(statusImageView: ImageView, status: ApiStatus?) {
         ApiStatus.LOADING -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.loading_animation)
-            statusImageView.getLayoutParams().height = 600;
-            statusImageView.getLayoutParams().width = 600;
+            statusImageView.getLayoutParams().height = 150;
+            statusImageView.getLayoutParams().width = 150;
             statusImageView.requestLayout();
         }
         ApiStatus.DONE -> {
@@ -38,7 +38,7 @@ fun bindStatus(statusImageView: ImageView, status: ApiStatus?) {
         }
         ApiStatus.ERROR -> {
             statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_connection_error)
+            statusImageView.setImageResource(R.drawable.ic_bx_wifi_off)
             statusImageView.getLayoutParams().height = 200;
             statusImageView.getLayoutParams().width = 200;
             statusImageView.requestLayout();

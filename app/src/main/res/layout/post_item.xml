@@ -16,15 +16,15 @@
 
         <TextView
             android:id="@+id/post_username"
-            android:layout_width="400dp"
+            android:layout_width="@dimen/size_400"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="@dimen/size_20"
+            android:layout_marginTop="@dimen/size_8"
+            android:layout_marginEnd="@dimen/size_20"
             android:adjustViewBounds="true"
-            android:padding="2dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:padding="@dimen/size_2"
+            android:paddingStart="@dimen/size_16"
+            android:paddingEnd="@dimen/size_16"
             android:scaleType="centerCrop"
             android:text="@{property.user}"
             android:textAlignment="textStart"
@@ -35,20 +35,20 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="POST USERNAME" />
+            tools:text="@string/post_username" />
 
         <TextView
             android:id="@+id/post_title"
-            android:layout_width="400dp"
+            android:layout_width="@dimen/size_400"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/size_20"
+            android:layout_marginTop="@dimen/size_8"
+            android:layout_marginEnd="@dimen/size_20"
+            android:layout_marginBottom="@dimen/size_16"
             android:adjustViewBounds="true"
-            android:padding="2dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:padding="@dimen/size_2"
+            android:paddingStart="@dimen/size_16"
+            android:paddingEnd="@dimen/size_16"
             android:scaleType="centerCrop"
             android:text="@{property.title}"
             android:textAlignment="textStart"
@@ -60,17 +60,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/post_username"
             app:layout_constraintVertical_bias="0.0"
-            tools:text="POST TITLE" />
+            tools:text="@string/post_title" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--    <ImageView-->
-<!--        android:id="@+id/mars_image"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="170dp"-->
-<!--        android:scaleType="centerCrop"-->
-<!--        android:adjustViewBounds="true"-->
-<!--        android:padding="2dp"-->
-<!--        app:imageUrl="@{property.}"-->
-<!--        tools:src="@tools:sample/backgrounds/scenic"/>-->
 </layout>
