@@ -33,9 +33,6 @@ fun bindStatus(statusImageView: ImageView, status: ApiStatus?) {
             statusImageView.getLayoutParams().width = 150;
             statusImageView.requestLayout();
         }
-        ApiStatus.DONE -> {
-            statusImageView.visibility = View.GONE
-        }
         ApiStatus.ERROR -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.ic_bx_wifi_off)
@@ -43,20 +40,20 @@ fun bindStatus(statusImageView: ImageView, status: ApiStatus?) {
             statusImageView.getLayoutParams().width = 200;
             statusImageView.requestLayout();
         }
+        else -> {
+            statusImageView.visibility = View.GONE
+        }
     }
 }
 
 @BindingAdapter("ApiStatusCommentVisibility")
 fun bindStatusCommentVisibility(commentsLabel: TextView, status: ApiStatus?) {
     when (status) {
-        ApiStatus.LOADING -> {
-                commentsLabel.visibility = View.GONE
-        }
         ApiStatus.DONE -> {
                 commentsLabel.visibility = View.VISIBLE
                 commentsLabel.requestLayout()
         }
-        ApiStatus.ERROR -> {
+        else -> {
                 commentsLabel.visibility = View.GONE
         }
     }

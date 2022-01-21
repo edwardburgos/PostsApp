@@ -6,7 +6,7 @@ import com.example.postsapp.entities.Comment
 import com.example.postsapp.entities.Post
 import com.example.postsapp.repository.MainRepository
 
-enum class ApiStatus { LOADING, ERROR, DONE }
+enum class ApiStatus { LOADING, ERROR, DONE, DONEWITHOUTCOMMENTS }
 
 class OverviewViewModel(
     app: Application

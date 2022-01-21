@@ -48,16 +48,29 @@ class MainRepository(
                         }
                     }
                 }
+                val commentsRetrieved = _comments.value
+                val comments: List<Comment> =
+                    if (commentsRetrieved != null) commentsRetrieved else listOf<Comment>()
+                _selectedPost.value = PostWithComments(
+                    post,
+                    comments.sortedBy { it.id }.reversed()
+                )
             } catch (t: Throwable) {
-                _status.value = ApiStatus.ERROR
+                lateinit var postComments: List<Comment>
+                withContext(Dispatchers.IO) {
+                    postComments = commentDao.getPostComments(post.id)
+                }
+                if (t.message == "Unable to resolve host \"jsonplaceholder.typicode.com\": No address associated with hostname") {
+                    _selectedPost.value = PostWithComments(
+                        post,
+                        postComments
+                    )
+                    _status.value = if (postComments.size != 0) ApiStatus.DONE else ApiStatus.DONEWITHOUTCOMMENTS
+                } else {
+                    _status.value = ApiStatus.ERROR
+                }
             }
-            val commentsRetrieved = _comments.value
-            val comments: List<Comment> =
-                if (commentsRetrieved != null) commentsRetrieved else listOf<Comment>()
-            _selectedPost.value = PostWithComments(
-                post,
-                comments.sortedBy { it.id }.reversed()
-            )
+
         }
     }
 
@@ -100,8 +113,17 @@ class MainRepository(
                     }
                 }
             } catch (t: Throwable) {
-                println(t.message)
-                _status.value = ApiStatus.ERROR
+                lateinit var databasePosts: List<Post>
+                withContext(Dispatchers.IO) {
+                    databasePosts = postDao.getAllPosts()
+                }
+                if (t.message == "Unable to resolve host \"jsonplaceholder.typicode.com\": No address associated with hostname" && databasePosts.size != 0) {
+                    _properties.value = databasePosts
+                    _status.value = ApiStatus.DONE
+                } else {
+                    _status.value = ApiStatus.ERROR
+                }
+
             }
         }
     }
