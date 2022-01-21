@@ -7,10 +7,10 @@ import com.example.postsapp.entities.Comment
 @Dao
 interface CommentDao {
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(comment: Comment)
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(comments: List<Comment>)
 
     @Update

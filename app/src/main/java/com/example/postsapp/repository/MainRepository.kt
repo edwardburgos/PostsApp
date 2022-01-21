@@ -41,11 +41,7 @@ class MainRepository(
                 if (listResult.size > 0) {
                     _comments.value = listResult
                     withContext(Dispatchers.IO) {
-                        if (commentDao.getPostComments(post.id).size == 0) {
-                            commentDao.insertAll(listResult)
-                        } else {
-                            commentDao.updateAll(listResult)
-                        }
+                        commentDao.insertAll(listResult)
                     }
                 }
                 val commentsRetrieved = _comments.value
@@ -105,11 +101,7 @@ class MainRepository(
                     }
                     _properties.value = listResult.sortedBy { it.id }.reversed()
                     withContext(Dispatchers.IO) {
-                        if (postDao.getAllPosts().size == 0) {
-                            postDao.insertAll(listResult)
-                        } else {
-                            postDao.updateAll(listResult)
-                        }
+                        postDao.insertAll(listResult)
                     }
                 }
             } catch (t: Throwable) {
