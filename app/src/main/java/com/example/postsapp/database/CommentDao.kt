@@ -20,10 +20,10 @@ interface CommentDao {
     fun updateAll(comments: List<Comment>)
 
     @Query("DELETE FROM comment_table")
-    suspend fun clear()
+    fun clear()
 
     @Query("SELECT * FROM comment_table WHERE postId = :key ORDER BY id DESC ")
-    suspend fun getPostComments(key: Int): List<Comment>
+    fun getPostComments(key: Int): List<Comment>
 
     @Query("SELECT * FROM comment_table")
     fun getAllComments(): LiveData<List<Comment>>

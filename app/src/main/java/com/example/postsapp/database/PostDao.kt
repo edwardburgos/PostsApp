@@ -20,10 +20,10 @@ interface PostDao {
     fun updateAll(posts: List<Post>)
 
     @Query("DELETE FROM post_table")
-    suspend fun clear()
+    fun clear()
 
     @Query("SELECT * FROM post_table ORDER BY id DESC ")
-    suspend fun getAllPosts(): List<Post>
+    fun getAllPosts(): List<Post>
 
     @Transaction
     @Query("SELECT * FROM post_table ORDER BY id DESC")
