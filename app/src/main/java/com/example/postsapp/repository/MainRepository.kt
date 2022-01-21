@@ -1,7 +1,6 @@
 package com.example.postsapp.repository
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.postsapp.entities.Comment
 import com.example.postsapp.database.SocialDatabase
@@ -57,7 +56,7 @@ class MainRepository(
                 if (commentsRetrieved != null) commentsRetrieved else listOf<Comment>()
             _selectedPost.value = PostWithComments(
                 post,
-                comments
+                comments.sortedBy { it.id }.reversed()
             )
         }
     }
@@ -91,8 +90,7 @@ class MainRepository(
                             e.user = username
                         }
                     }
-                    _properties.value = listResult
-                    Log.i("EDWARD", "SE ACTUALIZÓ")
+                    _properties.value = listResult.sortedBy { it.id }.reversed()
                     withContext(Dispatchers.IO) {
                         if (postDao.getAllPosts().size == 0) {
                             postDao.insertAll(listResult)
